@@ -5,15 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import br.com.fight.Entity.Academia;
 import br.com.fight.Entity.Lutador;
-import br.com.fight.Service.LutadorService;
-import br.com.fight.VO.LutadorVO;
 import br.com.fight.Repository.AcademiaRepository;
 import br.com.fight.Repository.LutadorRepository;
+import br.com.fight.Service.LutadorService;
+import br.com.fight.VO.LutadorVO;
 
 @Service
 public class LutadorServiceImpl implements LutadorService {
@@ -91,8 +90,6 @@ public class LutadorServiceImpl implements LutadorService {
         return false;
     }
 
-    
-
     @Override
     public List<Lutador> casarLutas(Long lutadorId) {
         Lutador lutadorBase = lutadorRepository.findById(lutadorId)
@@ -136,9 +133,7 @@ public class LutadorServiceImpl implements LutadorService {
 
         // Categoria Adulto
         else if (idadeBase <= 30 && idadeOutro <= 30){ 
-            boolean idadeCompativel = Math.abs(idadeOutro - idadeBase) <= 2;
-            boolean pesoCompativel = verificarFaixaPesoAdulto(pesoBase, pesoOutro);
-            return idadeCompativel && pesoCompativel;
+            return verificarFaixaPesoAdulto(pesoBase, pesoOutro);
         }
 
         // Categoria Master
@@ -148,7 +143,7 @@ public class LutadorServiceImpl implements LutadorService {
             return idadeCompativel && pesoCompativel;
         }
     }
-    
+
 
     @Override
     public boolean verificarFaixaPesoInfantil(double pesoBase, double pesoOutro){
